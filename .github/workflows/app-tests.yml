@@ -1,34 +1,40 @@
-name: Run Tests Using Jest
+name: "Run Tests — Node ${{ matrix.node }} on ${{ matrix.os }}"
+runs-on: ${{ matrix.os }}
+strategy:
+fail-fast: false
+matrix:
+os: [ubuntu-latest, windows-latest]
+node: [18, 20, 22]
+exclude:
+- os: windows-latest
+node: 18                                 
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 
-jobs:
-  test:
-    name: "Run Tests — Node ${{ matrix.node }} on ${{ matrix.os }}"
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        node: [18, 20, 22]
-        exclude:
-          - os: windows-latest
-            node: 18
+
+jobs:                                     
+
+  sample_app_tests:                       
+
+    name: "Run Tests Using Jest"
+
+    runs-on: ubuntu-latest                
 
     steps:
-      - uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
+      - uses: actions/checkout@v2         
 
-      - name: Install dependencies
+
+
+      - name: Install dependencies        
+
+        working-directory: sample-app
+
         run: npm install
 
-      - name: Run tests
+
+
+      - name: Run tests                   
+
+        working-directory: sample-app
+
         run: npm test
