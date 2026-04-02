@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies        
 
-        working-directory: ch5/sample-app
+        working-directory: sample-app
 
         run: npm install
 
