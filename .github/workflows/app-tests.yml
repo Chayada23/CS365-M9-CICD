@@ -1,13 +1,23 @@
-name: "Run Tests — Node ${{ matrix.node }} on ${{ matrix.os }}"
-runs-on: ${{ matrix.os }}
-strategy:
-fail-fast: false
-matrix:
-os: [ubuntu-latest, windows-latest]
-node: [18, 20, 22]
-exclude:
-- os: windows-latest
-node: 18
+name: Run Tests Using Jest
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sample_app_tests:
+    name: "Run Tests — Node ${{ matrix.node }} on ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [18, 20, 22]
+        exclude:
+          - os: windows-latest
+            node: 18
 
     steps:
       - uses: actions/checkout@v3
