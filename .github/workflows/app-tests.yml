@@ -30,6 +30,6 @@ jobs:
 
       - name: Run tests                   
 
-        working-directory: ch5/sample-app
+        working-directory: sample-app
 
         run: npm test
